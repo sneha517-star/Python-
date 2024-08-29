@@ -1,0 +1,72 @@
+
+import numpy as np 
+import pandas as pd 
+from sklearn.model_selection import train_test_split 
+from sklearn.ensemble import RandomForestRegressor
+import time
+ 
+# Sample data collection function 
+def collect_environmental_data(): 
+ # Placeholder for actual data collection from sensors 
+data = { 
+ 'temperature': np.random.uniform(20, 35), # in degrees Celsius 
+ 'humidity': np.random.uniform(30, 80), # in percentage 
+ 'soil_moisture': np.random.uniform(10, 50) # in percentage 
+ } 
+ return data 
+# Sample irrigation control function 
+def control_irrigation(action): if 
+action: 
+ print("Irrigation ON") 
+else: 
+ print("Irrigation OFF") 
+# Load and preprocess the dataset def 
+load_data(): 
+ # Placeholder for actual data loading 
+ # For example, we could load data from a CSV fil
+  # Placeholder for actual data loading 
+ # For example, we could load data from a CSV file 
+ # data = pd.read_csv('irrigation_data.csv') 
+ # Simulated data 
+data = { 
+ 'temperature': np.random.uniform(20, 35, 100), 
+ 'humidity': np.random.uniform(30, 80, 100), 
+ 'soil_moisture': np.random.uniform(10, 50, 100), 
+ 'irrigation': np.random.randint(0, 2, 100) # 0 or 1 
+ } 
+ df = pd.DataFrame(data) 
+return df 
+# Train a machine learning model def 
+train_model(data): 
+ X = data[['temperature', 'humidity']] 
+y = data['soil_moisture'] 
+ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, 
+random_state=42) 
+ model = RandomForestRegressor(n_estimators=100, random_state=42) 
+model.fit(X_train, y_train) return model 
+# Prediction and control loop def 
+main(): 
+ # Load data and train model 
+data = load_data() 
+model = train_model(data)
+while True: 
+ # Collect current environmental data 
+current_data = collect_environmental_data() 
+ X_current = np.array([[current_data['temperature'], 
+current_data['humidity']]]) 
+ 
+ # Predict soil moisture 
+ predicted_soil_moisture = model.predict(X_current)[0] 
+print(f"Predicted Soil Moisture: {predicted_soil_moisture:.2f}") 
+ 
+ # Determine if irrigation is needed 
+ irrigation_needed = predicted_soil_moisture < 30 # Threshold for soil 
+moisture 
+ control_irrigation(irrigation_needed) 
+ 
+ # Wait for a period (e.g., 1 hour) before next reading 
+time.sleep(3600) # Sleep for 1 hour (3600 seconds) 
+if _name_ == "_main_": 
+main() 
+ 
+ 
